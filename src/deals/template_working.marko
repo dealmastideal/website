@@ -21,47 +21,45 @@
 
   <body>
 
-    
-    
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg fixed-top navbar-light" style="background-color: rgb(232, 231, 231)">
+      <div class="container">
+        <a class="navbar-brand" href="#">Deal Masti Deal</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+          <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+                <a class="nav-link" href="/" >Home
+                            <span class="sr-only">(current)</span>
+                </a>
+              <!-- <a class="nav-link" href="/">Home
+                <span class="sr-only">(current)</span>
+              </a> -->
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/topdeals">Top Deals</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/coupons">Coupons</a>
+            </li>            
+          </ul>
+        </div>
+
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+            <ul class="navbar-nav ml-auto">              
+              <li class="nav-item">
+                <a class="nav-link" href="/contactus">Contact Us</a>
+              </li>
+            </ul>
+          </div>
+      </div>
+    </nav>
 
     <!-- Page Content -->
     <div class="container">
-            
-            <!-- Navigation -->
-            <div class="masthead">
-                <h3 class="text-muted">DealMastiDeal.com</h3>
-          
-                <nav class="navbar navbar-expand-md navbar-light bg-light rounded mb-3">
-                  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                  </button>
-                  <div class="collapse navbar-collapse" id="navbarCollapse">
-                    <ul class="navbar-nav text-md-center nav-justified w-100">
-                      <li class="nav-item active">
-                          <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
-                      </li>
-                      <li class="nav-item">
-                          <a class="nav-link" href="/topdeals">Top Deals</a>
-                      </li>
-                      <li class="nav-item">
-                          <a class="nav-link" href="/coupons">Coupons</a>
-                      </li>   
-                                         
-                      
-                      <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="http://example.com" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">More</a>
-                        <div class="dropdown-menu" aria-labelledby="dropdown01">
-                          <a class="dropdown-item" href="#">About</a>
-                          <a class="dropdown-item" href="/contactus">Contact Us</a>
-                        </div>
-                      </li>
-                    </ul>
-                  </div>
-                </nav>
-              </div>
-            <!-- Navigation End -->
-
-            <!-- Banner -->
+            <hr><hr>
             <div id="carouselExampleIndicators" class="carousel slide my-4 mx-auto" data-ride="carousel" style=" width:900px; height: 350px !important;">
                 <ol class="carousel-indicators">
                     <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
@@ -98,6 +96,23 @@
       <!-- Page Features -->
       <div class="row text-center">
 
+        <for(item in input.items)>
+            <div class="col-lg-3 col-md-6 mb-4">
+                <div class="card">
+                    <img class="card-img-top" src="${item.imageUrl}" alt="" class="rounded">
+                    <div class="card-body">
+                    <h4 class="card-title">$${item.price}</h4>
+                    <s class="card-title">${item.originalPrice}</s>
+                    <p class="card-text">${item.title}</p>
+                    </div>
+                    <div class="card-footer">
+                    <a href="/getdeal?rurl=${item.encodedurl}" class="btn btn-primary">Get Deal</a>
+                    </div>
+                </div>
+            </div>
+        </for>
+
+        <!--
         <div class="col-lg-3 col-md-6 mb-4">
           <div class="card">
             <img class="card-img-top" src="http://placehold.it/500x325" alt="" class="rounded">
@@ -148,7 +163,7 @@
               <a href="#" class="btn btn-primary">Find Out More!</a>
             </div>
           </div>
-        </div>
+        </div> -->
 
       </div>
       <!-- /.row -->
