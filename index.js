@@ -3,6 +3,8 @@ require('marko/node-require'); // Allow Node.js to require and load `.marko` fil
 const express = require('express');
 const markoExpress = require('marko/express');
 const helmet = require('helmet');
+const https = require('https');
+const fs = require('fs');
 
 //Import Pages
 let homepage = require('./src/homepage');
@@ -11,15 +13,21 @@ let coupons = require('./src/coupons');
 let contactus = require('./src/contactus');
 let getdeal = require('./src/getdeal');
 
+let errorPage = require('./src/error/template');
+
+const options = {
+    key: fs.readFileSync('certs/private_rsa.key'),
+    cert: fs.readFileSync('certs/certificate.crt')
+};
+
 let app = express();
-
-
+// app.enable('trust proxy');
 
 app.use(helmet());
 app.use(markoExpress()); 
 
 app.use((req, res, next) => {
-    console.log(`IP:${req.ips} Path:${req.originalUrl}`);
+    console.log(`${new Date().toLocaleTimeString('en-US')}:: IP:${req.ip} Path:${req.originalUrl}`);
 
     let userAgent = req.headers['user-agent'] || "";
 	//	Convert all character cases to lower to avoid linux environment mismatching
@@ -30,12 +38,19 @@ app.use((req, res, next) => {
 	
 	//	if bot detect?  return true elase false
 	if(BOT_REGEX.test(userAgent || false)) {
-        console.log('BOT DETECTED');
+        console.log('BOT DETECTED', userAgent);
     }
     next();
 });
 
 app.use('/static', express.static('public'))
+
+app.use((req, res, next) => {
+    if(!req.secure) {
+        res.redirect(302, `https://www.dealmastideal.com${req.originalUrl}`);        
+    }
+    next();
+});
 
 //Mount routes & pages
 app.get('/topdeals/:site', deals);
@@ -43,8 +58,15 @@ app.get('/topdeals', deals);
 app.get('/getdeal', getdeal);
 app.get('/coupons', coupons);
 app.get('/contactus', contactus);
-app.get('/', deals);
+app.get('*', deals);
+app.get((err, req, res, next) => {
+    errorPage.render({}, res);
+});
 
 app.listen(8080, () => {
-    console.log('App Started');
+    console.log('App Started on 8080');
+});
+
+https.createServer(options, app).listen(8443, () => {
+    console.log('App Started on 8443');
 });
