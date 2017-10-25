@@ -18,9 +18,9 @@ function render(input, out, __component, component, state) {
   var data = input;
 
   marko_forEach(input.items, function(item) {
-    out.w("<div class=\"col-lg-3 col-md-6 mb-4\"><div class=\"card\"><img src=\"" +
+    out.w("<div class=\"col-lg-3 col-md-6 mb-4\"><div class=\"card\"><div class=\"text-center\"> <img src=\"" +
       marko_escapeXmlAttr(item.imageUrl) +
-      "\" alt=\"\"><div class=\"card-body\"><h4 class=\"card-title\">$" +
+      "\" alt=\"\" style=\"width:70%; important!\"> </div><div class=\"card-body\"><h4 class=\"card-title\">$" +
       marko_escapeXml(item.price) +
       "</h4><s class=\"card-title\">" +
       marko_escapeXml(item.originalPrice) +
