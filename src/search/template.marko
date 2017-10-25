@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<body>
+
+<!-- Header -->
+<include('../../layouts/app-header/template.marko')/>
+
+<!-- Page Content -->
+<div class="container">
+            
+        <!-- Navigation -->
+        <include('../../layouts/navigation/template.marko', {currentPage: 'search'})/>
+                        
+      <!-- Page Features -->
+        
+            <if(input.error)>
+                <div class="alert alert-danger text-center" role="alert">${input.error}</div>
+            </if>
+            <else>
+                <div class="row text-center" id="dealsContent">
+                    <for(item in input.items)>
+                        <div class="col-lg-3 col-md-6 mb-4">
+                            <div class="card">
+                                <img class="card-img-top" src="${item.imageUrl}" alt="" class="rounded">
+                                <div class="card-body">
+                                <h4 class="card-title">$${item.price}</h4>
+                                <s class="card-title">${item.originalPrice}</s>
+                                <p class="card-text">${item.title}</p>
+                                </div>
+                                <div class="card-footer">
+                                <a href="/getdeal?rurl=${item.encodedurl}" class="btn btn-primary">Get Deal</a>
+                                </div>
+                            </div>
+                        </div>
+                    </for> 
+                </div>
+            </else>       
+
+        
+      <!-- /.row -->
+
+</div>
+<!-- /.container -->
+
+<!-- Footer -->
+<include('../../layouts/app-footer/template.marko')/>
+
+</body>
+
+</html>
