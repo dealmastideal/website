@@ -45,7 +45,7 @@
                         <p class="card-text">${item.title}</p>
                         </div>
                         <div class="card-footer">
-                        <a href="/getdeal?rurl=${item.encodedurl}" class="btn btn-primary">Get Deal</a>
+                        <img class="rounded img-responsive" style="width:12%; important!" src="/static/images/share.svg"> <a href="/getdeal?rurl=${item.encodedurl}&itemid=${item.id}&price=$${item.price}&store=ebay&userid=none" class="btn btn-primary">Get Deal</a>
                         </div>
                     </div>
                 </div>
@@ -60,7 +60,6 @@
 <!-- Footer -->
 <include('../../layouts/app-footer/template.marko')/>
 <script src="/static/js/infinitescroll.js" crossorigin="anonymous"></script>
-
 </body>
 
 </html>

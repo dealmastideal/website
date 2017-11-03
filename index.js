@@ -14,6 +14,9 @@ const options = {
     cert: fs.readFileSync('certs/certificate.crt')
 };
 
+//DB
+let dbconnection = require('./db/dbconnection');
+
 //Import Pages
 let homepage = require('./src/homepage');
 let deals = require('./src/deals');
@@ -58,6 +61,9 @@ app.use((req, res, next) => {
         next();
     }    
 });
+
+//Hook DB Connection
+app.use(dbconnection());
 
 //Mount routes & pages
 app.get('/topdeals/:site', deals);
