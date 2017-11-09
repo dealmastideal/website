@@ -1,2 +1,6 @@
-node_modules
-**/*.marko.js
+/node_modules
+**/**/*.marko.js
+**/**/.DS_Store
+layouts/.DS_Store
+src/.DS_Store
+public/.DS_Store

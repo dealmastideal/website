@@ -36,6 +36,7 @@ function getDeals(page, callback) {
                             return {
                                 id: element.itemId,
                                 title: element.title,
+                                encodedtitle: element.title.replace(/ /gi, '-'),
                                 url: element.itemUrl,
                                 encodedurl: encodeURIComponent(element.itemUrl),
                                 imageUrl: element.imageUrl,
@@ -81,6 +82,7 @@ function search(query, page, callback) {
                             return {
                                 id: element.itemId[0],
                                 title: element.title[0],
+                                encodedtitle: element.title[0].replace(/ /gi, '-'),
                                 url: element.viewItemURL[0],
                                 encodedurl: encodeURIComponent(element.viewItemURL[0]),
                                 imageUrl: element.galleryURL[0],
@@ -111,6 +113,7 @@ function searchDeals(query, page, callback) {
                             return {
                                 id: element.itemId,
                                 title: element.title,
+                                encodedtitle: element.title.replace(/ /gi, '-'),
                                 url: roverUrl + element.itemId,
                                 encodedurl: encodeURIComponent(roverUrl + element.itemId),
                                 imageUrl: element.imgUrl,

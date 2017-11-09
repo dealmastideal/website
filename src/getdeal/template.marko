@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<body>
+
+<!-- Header -->
+<include('../../layouts/app-header/template.marko')>
+    <@title>
+        ${input.ru} | DealMastiDeal.com
+    </@title>
+
+    <@description>
+        <meta name="description" content="${input.ru} | DealMastiDeal.com">
+    </@description>
+</include>
+
+<!-- Page Content -->
+<div class="container">
+            
+            <!-- Navigation -->
+            <include('../../layouts/navigation/template.marko', {currentPage: 'home'})/>                        
+
+      <!-- Page Features -->
+        <div class="row text-center" id="dealsContent">                   
+            You will be redirected in 1 sec.
+        </div>
+      <!-- /.row -->
+
+</div>
+<!-- /.container -->
+
+<!-- Footer -->
+<include('../../layouts/app-footer/template.marko')/>
+</body>
+
+<script type="text/javascript">
+    
+    function Redirect() {
+        window.location="${input.ru}";
+    }
+    
+    setTimeout('Redirect()', 1000);
+    
+</script>
+
+</html>

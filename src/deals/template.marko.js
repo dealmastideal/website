@@ -16,6 +16,7 @@ var marko_template = module.exports = require("marko/src/html").t(__filename),
     marko_helpers = require("marko/src/runtime/html/helpers"),
     marko_loadTag = marko_helpers.t,
     component_globals_tag = marko_loadTag(require("marko/src/components/taglib/component-globals-tag")),
+    hasRenderBodyKey = Symbol.for("hasRenderBody"),
     include_tag = marko_loadTag(require("marko/src/taglibs/core/include-tag")),
     marko_forEach = marko_helpers.f,
     marko_escapeXmlAttr = marko_helpers.xa,
@@ -31,7 +32,18 @@ function render(input, out, __component, component, state) {
   component_globals_tag({}, out);
 
   include_tag({
-      _target: template_template
+      _target: template_template,
+      title: {
+          renderBody: function renderBody(out) {
+            out.w("Unique eBay Deals, Amazon Deals, Black Friday Deals, Upto 75% Off | DealMastiDeal.com");
+          }
+        },
+      description: {
+          renderBody: function renderBody(out) {
+            out.w("<meta name=\"description\" content=\"Offers you a unqiue eBay Deals &amp; Amazon Deals also you can earn cashback when you click from dealmastideal.com.\">");
+          }
+        },
+      [hasRenderBodyKey]: true
     }, out, __component, "2");
 
   out.w("<div class=\"container\">");
@@ -41,7 +53,7 @@ function render(input, out, __component, component, state) {
       _arg: {
           currentPage: "deals"
         }
-    }, out, __component, "4");
+    }, out, __component, "7");
 
   out.w("<div id=\"carouselExampleIndicators\" class=\"carousel slide my-4 mx-auto\" data-ride=\"carousel\" style=\" width:400px; height: 150px !important;\"><ol class=\"carousel-indicators\"><li data-target=\"#carouselExampleIndicators\" data-slide-to=\"0\" class=\"active\"></li><li data-target=\"#carouselExampleIndicators\" data-slide-to=\"1\"></li><li data-target=\"#carouselExampleIndicators\" data-slide-to=\"2\"></li></ol><div class=\"carousel-inner\" role=\"listbox\" style=\" width:400px; height: 150px !important;\"><div class=\"carousel-item active\"><img class=\"d-block img-fluid\" src=\"/static/ebay_tm_rgb.jpg\" alt=\"First slide\"></div> </div><a class=\"carousel-control-prev\" href=\"#carouselExampleIndicators\" role=\"button\" data-slide=\"prev\"><span class=\"carousel-control-prev-icon\" aria-hidden=\"true\"></span><span class=\"sr-only\">Previous</span></a><a class=\"carousel-control-next\" href=\"#carouselExampleIndicators\" role=\"button\" data-slide=\"next\"><span class=\"carousel-control-next-icon\" aria-hidden=\"true\"></span><span class=\"sr-only\">Next</span></a></div><div class=\"row text-center\" id=\"dealsContent\">");
 
@@ -54,8 +66,10 @@ function render(input, out, __component, component, state) {
       marko_escapeXml(item.originalPrice) +
       "</s><p class=\"card-text\">" +
       marko_escapeXml(item.title) +
-      "</p></div><div class=\"card-footer\"><a href=\"/getdeal?rurl=" +
-      marko_escapeXmlAttr(item.encodedurl) +
+      "</p></div><div class=\"card-footer\"><img class=\"rounded img-responsive\" style=\"width:12%; important!\" src=\"/static/images/share.svg\"> <a href=\"/" +
+      marko_escapeXmlAttr(item.encodedtitle) +
+      "/" +
+      marko_escapeXmlAttr(item.id) +
       "\" class=\"btn btn-primary\">Get Deal</a></div></div></div>");
   });
 
@@ -63,13 +77,13 @@ function render(input, out, __component, component, state) {
 
   include_tag({
       _target: template_template3
-    }, out, __component, "30");
+    }, out, __component, "34");
 
   out.w("<script src=\"/static/js/infinitescroll.js\" crossorigin=\"anonymous\"></script>");
 
   init_components_tag({}, out);
 
-  await_reorderer_tag({}, out, __component, "32");
+  await_reorderer_tag({}, out, __component, "36");
 
   out.w("</body></html>");
 }

@@ -26,8 +26,10 @@ function render(input, out, __component, component, state) {
       marko_escapeXml(item.originalPrice) +
       "</s><p class=\"card-text\">" +
       marko_escapeXml(item.title) +
-      "</p></div><div class=\"card-footer\"><a href=\"/getdeal?rurl=" +
-      marko_escapeXmlAttr(item.encodedurl) +
+      "</p></div><div class=\"card-footer\"><a href=\"/" +
+      marko_escapeXmlAttr(item.encodedtitle) +
+      "/" +
+      marko_escapeXmlAttr(item.id) +
       "\" class=\"btn btn-primary\">Get Deal</a></div></div></div>");
   });
 

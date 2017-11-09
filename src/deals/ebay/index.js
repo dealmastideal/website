@@ -24,6 +24,7 @@ module.exports = function(req, res, callback) {
                             return {
                                 id: element.itemId,
                                 title: element.title,
+                                encodedtitle: element.title.replace(/ /gi, '-'),
                                 url: element.itemUrl,
                                 encodedurl: encodeURIComponent(element.itemUrl),
                                 imageUrl: element.imageUrl,
