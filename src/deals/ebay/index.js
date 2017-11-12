@@ -1,6 +1,6 @@
 let request = require('request');
 
-const ebayDealsURL = 'https://epndeals.api.ebay.com/epndeals/v1?marketplace=us&campaignid=5338197600&toolid=100034&rotationId=711-53200-19255-0&type=DAILY%2CWEEKLY%2CCORE&format=jsoncount=50&offset=';
+const ebayDealsURL = 'https://epndeals.api.ebay.com/epndeals/v1?marketplace=us&campaignid=5338197600&toolid=100034&rotationId=711-53200-19255-0&type=DAILY%2CWEEKLY%2CCORE&format=json&count=50&offset=';
 
 let ebayDealsCache = {items:[]}, timestamp = Date.now();
 module.exports = function(req, res, callback) {
