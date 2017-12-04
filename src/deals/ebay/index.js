@@ -2,13 +2,13 @@ let request = require('request');
 
 const ebayDealsURL = 'https://epndeals.api.ebay.com/epndeals/v1?marketplace=us&campaignid=5338197600&toolid=100034&rotationId=711-53200-19255-0&type=DAILY%2CWEEKLY%2CCORE&format=json&count=50&offset=';
 
-let ebayDealsCache = {items:[]}, timestamp = Date.now();
+let ebayDealsCache = {items:[], site: 'ebay'}, timestamp = Date.now();
 module.exports = function(req, res, callback) {
     let page = req.query.page || '1';
 
     //Return Cached content for Page=1, rest other pages (2,3..) call service
     if(page === '1' && Date.now() - timestamp < 60*60*1000 && ebayDealsCache.items.length > 0) {
-        console.log('Returning Cached Content for first page');
+        console.log('ebay - Returning Cached Content for first page');
         return callback(null, ebayDealsCache);
     }
 
@@ -24,13 +24,14 @@ module.exports = function(req, res, callback) {
                             return {
                                 id: element.itemId,
                                 title: element.title,
-                                encodedtitle: element.title.replace(/ /gi, '-'),
+                                encodedtitle: element.title.replace(/ /gi, '-').replace(/\//gi, '-'),
                                 url: element.itemUrl,
                                 encodedurl: encodeURIComponent(element.itemUrl),
                                 imageUrl: element.imageUrl,
                                 price: element.price,
                                 originalPrice: element.originPrice,
-                                currency: element.currency
+                                currency: element.currency,
+                                store: 'ebay'
                             }
                         });
 
@@ -38,7 +39,8 @@ module.exports = function(req, res, callback) {
         if(page === '1') {
             ebayDealsCache.items = ebayDeals.items;
             timestamp = Date.now();
-        }                    
+        }
+        ebayDeals.site = 'ebay';
         callback(null, ebayDeals);
     });
 };

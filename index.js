@@ -66,13 +66,21 @@ app.use((req, res, next) => {
 app.use(dbconnection());
 
 //Mount routes & pages
-app.get('/topdeals/:site', deals);
-app.get('/topdeals', deals);
+//Top Deals
 app.get('/search', search);
-// app.get('/getdeal', getdeal);
-app.get('/*/:itemid', getdeal);
+app.get('/topdeals', deals);
 app.get('/coupons', coupons);
 app.get('/contactus', contactus);
+
+app.get('/:site/topdeals', deals);
+app.get('/:site/:title/:itemid', getdeal);
+app.get('/:site', deals);
+
+// app.get('/getdeal', getdeal);
+
+//Deal Details
+
+
 app.get('*', deals);
 app.get((err, req, res, next) => {
     errorPage.render({}, res);

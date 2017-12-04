@@ -3,15 +3,18 @@ let template = require('./template');
 let ajax = require('./ajax');
 
 let sites = {
-    'ebay': require('./ebay')
+    'ebay': require('./ebay'),
+    'walmart': require('./walmart')
 };
+const defaultSite = 'ebay';
 
 module.exports = function(req, res) {
     res.set('Content-Type', 'text/html');
-    let site = req.params.site || 'ebay';
+    let site = req.params.site || defaultSite;
     let pagination = req.query.page;
     if(site) {
-        sites[site](req, res, (err, data) => {
+        let siteFunc = sites[site] || sites[defaultSite];
+        siteFunc(req, res, (err, data) => {
             if(pagination) {
                 ajax.render(data, res);
             } else {

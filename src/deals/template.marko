@@ -13,60 +13,75 @@
     </@description>
 </include>
 
-<!-- Page Content -->
-<div class="container">
+    <header>
+        <include('../../layouts/navigation/template.marko', {currentPage: 'deals'})/>                            
+    </header>
+
+    <div class="container-fluid">
+      <div class="row">
+        <nav class="col-sm-3 col-md-2 d-none d-sm-block bg-light sidebar">
+          <ul class="nav nav-pills flex-column">
+            <li class="nav-item">
+              <a class="nav-link active" href="#">Stores <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">            
+              <a class="nav-link" href="/ebay"><img class="d-block img-fluid" src="/static/images/ebay.jpg" style="width:60%; height:60%; important!"></a>
+            </li>
+            <li class="nav-item">                
+              <a class="nav-link" href="/walmart"><img class="d-block img-fluid" src="/static/images/walmart.jpg" style="width:60%; height:60%; important!"></a>
+            </li>
             
-            <!-- Navigation -->
-            <include('../../layouts/navigation/template.marko', {currentPage: 'deals'})/>
-            
+          </ul>
+          
+        </nav>
+
+        <main role="main" class="col-sm-9 ml-sm-auto col-md-10 pt-3">
+
             <div id="carouselExampleIndicators" class="carousel slide my-4 mx-auto" data-ride="carousel" style=" width:400px; height: 150px !important;">
                 <ol class="carousel-indicators">
-                    <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
-                    <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
-                    <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+                    <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>                    
                 </ol>
-                <div class="carousel-inner" role="listbox" style=" width:400px; height: 150px !important;">
+                <div class="carousel-inner" role="listbox" style=" width:300px; height: 120px !important;">
                     <div class="carousel-item active">
-                    <img class="d-block img-fluid" src="/static/ebay_tm_rgb.jpg" alt="First slide">
+                        <img class="d-block img-fluid" src="/static/images/${input.site}.jpg" alt="First slide">
                     </div>                    
                 </div>
-                <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
-                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                    <span class="sr-only">Previous</span>
-                </a>
-                <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
-                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                    <span class="sr-only">Next</span>
-                </a>
+                
             </div>
 
-      <!-- Page Features -->
-        <div class="row text-center" id="dealsContent">
-
-            <for(item in input.items)>
-                <div class="col-lg-3 col-md-6 mb-4">
-                    <div class="card">
-                        <div class="text-center"> <img class="card-img-top" src="${item.imageUrl}" alt="" class="rounded img-responsive" style="width:70%; important!"> </div>
-                        <div class="card-body">
-                        <h4 class="card-title">$${item.price}</h4>
-                        <s class="card-title">${item.originalPrice}</s>
-                        <p class="card-text">${item.title}</p>
-                        </div>
-                        <div class="card-footer">
-                        <img class="rounded img-responsive" style="width:12%; important!" src="/static/images/share.svg"> <a href="/${item.encodedtitle}/${item.id}" class="btn btn-primary">Get Deal</a>
+          <section class="row text-center" id="dealsContent">
+            
+                <for(item in input.items)>
+                    <div class="col-lg-3 col-md-6 mb-4">
+                        <div class="card">
+                            <div class="text-center"> <img class="card-img-top" src="${item.imageUrl}" alt="" class="rounded img-responsive" style="width:70%; important!"> </div>
+                            <div class="card-body">
+                            <h4 class="card-title">$${item.price}</h4>
+                            <s class="card-title">${item.originalPrice}</s>
+                            <p class="card-text">${item.title}</p>
+                            </div>
+                            <div class="card-footer">
+                            <img class="rounded img-responsive" style="width:12%; important!" src="/static/images/share.svg"> <a href="/${input.site}/${item.encodedtitle}/${item.id}" class="btn btn-primary">Get Deal</a>
+                            </div>
                         </div>
                     </div>
-                </div>
-            </for>        
+                </for> 
+          </section>
 
-        </div>
-      <!-- /.row -->
-
-</div>
+          
+        </main>
+      </div>
+    </div>
+    
+<!-- Page Content -->    
+            
 <!-- /.container -->
 
 <!-- Footer -->
 <include('../../layouts/app-footer/template.marko')/>
+<script>
+    var currentSite = "${input.site}";
+</script>
 <script src="/static/js/infinitescroll.js" crossorigin="anonymous"></script>
 </body>
 

@@ -4,7 +4,7 @@ $(window).scroll(function() {
     if ($(window).scrollTop() == $(document).height() - $(window).height()) {
         page++;
         $.ajax({
-            url: '/topdeals?page='+page
+            url: '/'+currentSite+'/topdeals?page='+page
         }).done(function(data) {
             $("#dealsContent").append(data);
         }).fail(function() {
