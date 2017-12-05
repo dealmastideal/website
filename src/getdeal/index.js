@@ -5,13 +5,15 @@ let ClicksSchema = require('../../db/Clicks');
 const redirectUrls = {
     'ebay': (itemId, title) => {
             return 'https://rover.ebay.com/rover/1/711-53200-19255-0/1?ff3=2&toolid=100034&campid=5338197600&customid=&vectorid=229466&item=' + itemId;
-        },
+    },
     'walmart': (itemId, title) => {
             let walmartUrl = encodeURIComponent(encodeURIComponent(`https://www.walmart.com/ip/${title}/${itemId}?affp1=Jbms7IA4e4-4ts1VQW3NqgCLkDydS8ws5_78t3r6Aow&affilsrc=api`));
             return `http://linksynergy.walmart.com/fs-bin/click?id=dytoBTXu0Pk&offerid=223073.7200&type=14&catid=8&subid=0&hid=7200&tmpid=1082&RD_PARM1=${walmartUrl}`;
-        }
+    },
+    'amazon': (itemId, title) => {        
+        return `http://www.amazon.com/${title}/dp/${itemId}?SubscriptionId=AKIAI75DNMUHMCTDRK4Q&tag=dealmastideal-20&linkCode=xm2&camp=2025`;
+    }
 }
-const ru = 'https://rover.ebay.com/rover/1/711-53200-19255-0/1?ff3=2&toolid=100034&campid=5338197600&customid=&vectorid=229466&item=';
 
 module.exports = function(req, res) {
     res.set('Content-Type', 'text/html');
@@ -26,8 +28,6 @@ module.exports = function(req, res) {
     let ru = redirectUrls[site](itemId, title);
     // console.log('********',site, itemId, title, ru);
     res.redirect(ru);
-
-    // template.render({ru: ru + itemId}, res);
 
     //Save to DB
     if(!req.isBot) {

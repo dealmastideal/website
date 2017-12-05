@@ -4,7 +4,8 @@ let ajax = require('./ajax');
 
 let sites = {
     'ebay': require('./ebay'),
-    'walmart': require('./walmart')
+    'walmart': require('./walmart'),
+    'amazon': require('./amazon')
 };
 const defaultSite = 'ebay';
 

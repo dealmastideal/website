@@ -19,16 +19,19 @@
 
     <div class="container-fluid">
       <div class="row">
-        <nav class="col-sm-3 col-md-2 d-none d-sm-block bg-light sidebar">
+        <nav class="col-sm-3 col-md-2 d-none d-sm-block bg-white sidebar">
           <ul class="nav nav-pills flex-column">
             <li class="nav-item">
               <a class="nav-link active" href="#">Stores <span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item">            
-              <a class="nav-link" href="/ebay"><img class="d-block img-fluid" src="/static/images/ebay.jpg" style="width:60%; height:60%; important!"></a>
+              <a class="nav-link" href="/ebay"><img class="d-block img-fluid" src="/static/images/ebay.jpg" style="width:50%; height:50%; !important"></a>
             </li>
             <li class="nav-item">                
-              <a class="nav-link" href="/walmart"><img class="d-block img-fluid" src="/static/images/walmart.jpg" style="width:60%; height:60%; important!"></a>
+              <a class="nav-link" href="/walmart"><img class="d-block img-fluid" src="/static/images/walmart.jpg" style="width:70%; height:70%; !important"></a>
+            </li>
+            <li class="nav-item">                
+              <a class="nav-link" href="/amazon"><img class="d-block img-fluid" src="/static/images/amazon.jpg" style="width:65%; height:65%; !important"></a>
             </li>
             
           </ul>
@@ -36,32 +39,38 @@
         </nav>
 
         <main role="main" class="col-sm-9 ml-sm-auto col-md-10 pt-3">
-
-            <div id="carouselExampleIndicators" class="carousel slide my-4 mx-auto" data-ride="carousel" style=" width:400px; height: 150px !important;">
+            
+            
+           <div id="carouselExampleIndicators" class="carousel slide my-4 mx-auto" data-ride="carousel" style=" width:400px; height: 150px !important;">
                 <ol class="carousel-indicators">
                     <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>                    
                 </ol>
                 <div class="carousel-inner" role="listbox" style=" width:300px; height: 120px !important;">
                     <div class="carousel-item active">
-                        <img class="d-block img-fluid" src="/static/images/${input.site}.jpg" alt="First slide">
+                        <a href="${input.home}"><img class="d-block img-fluid" src="/static/images/${input.site}.jpg" alt="First slide"></a>
                     </div>                    
                 </div>
                 
             </div>
 
-          <section class="row text-center" id="dealsContent">
-            
+          <section class="row text-center" id="dealsContent">                
                 <for(item in input.items)>
                     <div class="col-lg-3 col-md-6 mb-4">
                         <div class="card">
-                            <div class="text-center"> <img class="card-img-top" src="${item.imageUrl}" alt="" class="rounded img-responsive" style="width:70%; important!"> </div>
+                            <div class="text-center"> <img class="card-img-top" src="${item.imageUrl}" alt="" class="rounded img-responsive" style="width:70%; !important"> </div>
                             <div class="card-body">
-                            <h4 class="card-title">$${item.price}</h4>
+                            <if(item.price && (item.price + '').indexOf('$') > -1)>
+                                <h4 class="card-title">${item.price}</h4>
+                            </if>
+                            <else>
+                                <h4 class="card-title">$${item.price}</h4>
+                            </else>
+                            
                             <s class="card-title">${item.originalPrice}</s>
                             <p class="card-text">${item.title}</p>
                             </div>
                             <div class="card-footer">
-                            <img class="rounded img-responsive" style="width:12%; important!" src="/static/images/share.svg"> <a href="/${input.site}/${item.encodedtitle}/${item.id}" class="btn btn-primary">Get Deal</a>
+                            <img class="rounded img-responsive" style="width:12%; !important" src="/static/images/share.svg"> <a href="/${input.site}/${item.encodedtitle}/${item.id}" class="btn btn-primary">Get Deal</a>
                             </div>
                         </div>
                     </div>
