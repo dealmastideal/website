@@ -22,6 +22,7 @@ module.exports = function(req, res, callback) {
         console.log('Amazon - Clearing Cache content after 24 hrs');
         
         dealsToReturn.items = copy(dealsCache.items, (page-1)*batchSize, (page*batchSize));
+        dealsToReturn.home = homePageUrl;
         callback(null, dealsToReturn);
 
         //Clear cache and re-fetch
@@ -34,6 +35,7 @@ module.exports = function(req, res, callback) {
     if(dealsCache.items.length >= page*10) {
         console.log('Amazon - Returning Cached Content for first page');
         dealsToReturn.items = copy(dealsCache.items, (page-1)*batchSize, (page*batchSize));
+        dealsToReturn.home = homePageUrl;
         return callback(null, dealsToReturn);
     }
 
@@ -51,18 +53,24 @@ module.exports = function(req, res, callback) {
           let data = response.result.ItemLookupResponse.Items.Item;
           let deals = {};
           deals.items = data.map(function(element) {
-                              return {
-                                  id: element.ASIN,
-                                  title: element.ItemAttributes.Title,
-                                  encodedtitle: element.ItemAttributes.Title.replace(/ /gi, '-'),
-                                  url: element.DetailPageURL,
-                                  encodedurl: encodeURIComponent(element.DetailPageURL),
-                                  imageUrl: element.LargeImage.URL,
-                                  price: (element.OfferSummary && element.OfferSummary.LowestNewPrice.FormattedPrice) || (element.ItemAttributes.ListPrice && element.ItemAttributes.ListPrice.FormattedPrice),
-                                  originalPrice: element.ItemAttributes.ListPrice && element.ItemAttributes.ListPrice.FormattedPrice ,
-                                  currency: element.ItemAttributes.OfferSummary && element.ItemAttributes.OfferSummary.LowestNewPrice.CurrencyCode || '$',
-                                  store: 'amazon'
-                              }
+                            try {
+                                return {
+                                    id: element.ASIN,
+                                    title: element.ItemAttributes.Title,
+                                    encodedtitle: element.ItemAttributes.Title.replace(/ /gi, '-'),
+                                    url: element.DetailPageURL,
+                                    encodedurl: encodeURIComponent(element.DetailPageURL),
+                                    imageUrl: element.LargeImage.URL,
+                                    price: (element.OfferSummary && element.OfferSummary.LowestNewPrice.FormattedPrice) || (element.ItemAttributes.ListPrice && element.ItemAttributes.ListPrice.FormattedPrice),
+                                    originalPrice: element.ItemAttributes.ListPrice && element.ItemAttributes.ListPrice.FormattedPrice ,
+                                    currency: element.ItemAttributes.OfferSummary && element.ItemAttributes.OfferSummary.LowestNewPrice.CurrencyCode || '$',
+                                    store: 'amazon'
+                                }
+                            } catch (error) {
+                                console.log('Error while parsing data from Amazon',error);
+                                return null;
+                            }
+                              
                           });
                                      
             dealsCache.items = dealsCache.items.concat(deals.items);
