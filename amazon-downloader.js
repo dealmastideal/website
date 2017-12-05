@@ -37,4 +37,4 @@ function fetchAmazonDeals() {
     });
 }
 fetchAmazonDeals();
-// setInterval(fetchAmazonDeals, 24*60*60*1000);
+setInterval(fetchAmazonDeals, 24*60*60*1000);

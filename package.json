@@ -4,7 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "prestart": "node amazon-downloader.js",
     "start": "./node_modules/.bin/pm2 start index.js",
+    "prestop": "kill -9 `pgrep -f amazon-downloader.js`",
     "stop": "./node_modules/.bin/pm2 stop index.js"
   },
   "author": "dealmastideal@gmail.com",
