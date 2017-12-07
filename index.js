@@ -31,7 +31,10 @@ let app = express();
 // app.enable('trust proxy');
 app.use(favicon(path.join(__dirname, 'public/images', 'favicon.ico')));
 app.use('/static', express.static('public'))
-
+app.get('/BingSiteAuth.xml', (req, res)=> {
+    res.setHeader("content-type", "application/xml");
+    fs.createReadStream("public/BingSiteAuth.xml").pipe(res);
+});
 app.use(morgan('[:date[clf]] :method :url :status :remote-addr - :response-time ms'));
 app.use(helmet());
 app.use(markoExpress()); 
@@ -71,12 +74,12 @@ app.get('/search', search);
 app.get('/topdeals', deals);
 app.get('/coupons', coupons);
 app.get('/contactus', contactus);
+app.get('/getdeal', getdeal);
 
 app.get('/:site/topdeals', deals);
 app.get('/:site/:title/:itemid', getdeal);
+app.get('/:title/:itemid', getdeal);
 app.get('/:site', deals);
-
-// app.get('/getdeal', getdeal);
 
 //Deal Details
 

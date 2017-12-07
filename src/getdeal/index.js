@@ -17,7 +17,13 @@ const redirectUrls = {
 
 module.exports = function(req, res) {
     res.set('Content-Type', 'text/html');
-    // let redirectUrl = req.query.rurl || 'www.dealmastideal.com';
+    let redirectUrl = req.query.rurl;
+    
+    //Legacy
+    if(redirectUrl){
+        return res.redirect(redirectUrl);
+    }
+    
     let price = req.query.price || 0;
     // let itemId = req.query.itemid || 0;
     let userid = req.query.userid || 'none';
