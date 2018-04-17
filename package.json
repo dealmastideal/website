@@ -7,12 +7,14 @@
     "startdownload": "node amazon-downloader.js",
     "start": "./node_modules/.bin/pm2 start index.js",
     "stopdownload": "kill -9 `pgrep -f amazon-downloader.js`",
-    "stop": "./node_modules/.bin/pm2 stop index.js"
+    "stop": "./node_modules/.bin/pm2 stop index.js",
+    "logs": "./node_modules/.bin/pm2 logs"
   },
   "author": "dealmastideal@gmail.com",
   "license": "ISC",
   "dependencies": {
     "apac": "^3.0.2",
+    "compression": "^1.7.2",
     "express": "^4.16.2",
     "helmet": "^3.8.2",
     "marko": "^4.4.28",

@@ -8,6 +8,7 @@ const fs = require('fs');
 const path = require('path');
 const morgan = require('morgan');
 const favicon = require('serve-favicon');
+const compression = require('compression');
 
 const options = {
     key: fs.readFileSync('certs/private_rsa.key'),
@@ -76,6 +77,8 @@ app.use((req, res, next) => {
 
 //Hook DB Connection
 app.use(dbconnection());
+
+app.use(compression());
 
 //Mount routes & pages
 //Top Deals
