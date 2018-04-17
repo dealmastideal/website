@@ -23,7 +23,7 @@ module.exports = function(req, res) {
     if(redirectUrl){
         return res.redirect(redirectUrl);
     }
-    
+
     let price = req.query.price || 0;
     // let itemId = req.query.itemid || 0;
     let userid = req.query.userid || 'none';
@@ -31,7 +31,8 @@ module.exports = function(req, res) {
     let title = req.params.title || req.query.title || '-';   
     let itemId = req.params.itemid || 0;
     
-    let ru = redirectUrls[site](itemId, title);
+    let func = redirectUrls[site] || redirectUrls['ebay'];
+    let ru = func(itemId, title);
     // console.log('********',site, itemId, title, ru);
     res.redirect(ru);
 

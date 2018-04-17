@@ -1,6 +1,6 @@
 let request = require('request');
 
-const ebayDealsURL = 'https://epndeals.api.ebay.com/epndeals/v1?marketplace=us&campaignid=5338197600&toolid=100034&rotationId=711-53200-19255-0&type=DAILY%2CWEEKLY%2CCORE&format=json&count=50&offset=';
+const ebayDealsURL = 'https://epndeals.api.ebay.com/epndeals/v1?marketplace=us&campaignid=5338197600&toolid=100034&rotationId=711-53200-19255-0&type=DAILY%2CWEEKLY%2CCORE&format=json&count=100&offset=';
 const homePageUrl = 'https://rover.ebay.com/rover/1/711-53200-19255-0/1?ff3=4&toolid=100034&campid=5338197600&customid=&vectorid=229466&mpre=https%3A%2F%2Fwww.ebay.com';
 
 let ebayDealsCache = {items:[], site: 'ebay', home: homePageUrl}, timestamp = Date.now();

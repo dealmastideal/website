@@ -14,6 +14,8 @@ const options = {
     cert: fs.readFileSync('certs/certificate.crt')
 };
 
+const sslauth = require('./ssl-auth.json');
+
 //DB
 let dbconnection = require('./db/dbconnection');
 
@@ -35,6 +37,13 @@ app.get('/BingSiteAuth.xml', (req, res)=> {
     res.setHeader("content-type", "application/xml");
     fs.createReadStream("public/BingSiteAuth.xml").pipe(res);
 });
+
+app.get('/.well-known/acme-challenge/:key', (req, res)=> {   
+    let key = req.params.key || ''; 
+    let val = sslauth[key] || '';
+    res.send(val).end();
+});
+
 app.use(morgan('[:date[clf]] :method :url :status :remote-addr - :response-time ms'));
 app.use(helmet());
 app.use(markoExpress()); 
